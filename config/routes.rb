@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'products#index'
-  get '/products', to: 'products#index'
+  root to: 'products#show'
+  get '/products/:id', to: 'products#show'
 end
 
