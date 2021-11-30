@@ -1,15 +1,12 @@
-import template from 'lodash.template';
+import ProductModel from './productModel';
+import ProductView from './productView';
 
-const products = async function() { 
+(async () => { 
   const id = document.getElementById('product-display').getAttribute('data-id');
-  const req = await fetch(`/products/${id}.json`);
-  const productJson = await req.json(); 
+  const model = new ProductModel(id);
+  const product = await model.fetchProduct(id);
 
-  const compiledTemplate = template('<h1>foo <%= title %></h1>');
- 
-  const container = document.createElement('div');
-  container.innerHTML = compiledTemplate(productJson);
-
-  document.getElementsByTagName('body')[0].appendChild(container);
-}();
+  const view = new ProductView(product);
+  view.render();
+})();
 
