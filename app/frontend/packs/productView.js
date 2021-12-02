@@ -6,7 +6,12 @@ class ProductView {
   }
 
   render() {
-    const compiledTemplate = template('<h1><%= title %></h1>');
+    const compiledTemplate = template(`
+      <h1><%= title %></h1>
+      <hr />
+      <h2>Reviews</h2>
+      <div id="reviews"></div>
+    `);
    
     const container = document.createElement('div');
     container.innerHTML = compiledTemplate(this.product);
