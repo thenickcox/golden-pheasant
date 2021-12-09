@@ -3,5 +3,6 @@ Rails.application.routes.draw do
   get '/products/:id', to: 'products#show'
   post '/products/:product_id/reviews', to: 'reviews#create'
   get '/products/:product_id/reviews', to: 'reviews#index'
+  post '/products/:product_id/reviews', to: 'reviews#create'
 end
 

@@ -1,4 +1,5 @@
 import template from 'lodash.template';
+import ReviewListItemView from './reviewListItemView';
 
 class ReviewsCollectionView {
   constructor(reviews) {
@@ -7,18 +8,19 @@ class ReviewsCollectionView {
 
   render() {
     const compiledTemplate = template(`
-      <% reviews.map(function(review) { %>
-        <ul>
-          <li><%= review.stars %></li>
-          <li><%= review.content %></li>
-        </ul>
-      <% }); %>
+      <ul id="productReviewList">
+      </ul>
     `);
    
     const container = document.createElement('div');
-    container.innerHTML = compiledTemplate({ reviews: this.reviews });
+    container.innerHTML = compiledTemplate();
 
     document.getElementById('reviews').appendChild(container);
+
+    this.reviews.map(review => {
+      const view = new ReviewListItemView({ review, el: document.getElementById('productReviewList') });
+      view.render();
+    });
   }
 }
 
