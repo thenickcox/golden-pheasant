@@ -8,13 +8,12 @@ import ReviewsCollectionView from './reviewsCollectionView';
   const model = new ProductModel(id);
   const product = await model.fetchProduct(id);
 
-
-  const productView = new ProductView(product);
-  productView.render();
-
-
   const collection = new ReviewsCollection({ modelId: id });
   const reviews = await collection.fetchReviewsForProduct();
+
+  const productView = new ProductView(product, reviews);
+  productView.render();
+
   const collectionView = new ReviewsCollectionView(reviews);
   collectionView.render();
 })();

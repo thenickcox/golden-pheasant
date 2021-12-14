@@ -1,9 +1,12 @@
 import template from 'lodash.template';
+import reduce from 'lodash.reduce';
+import round from 'lodash.round';
 import ReviewListItemView from './reviewListItemView';
 
 class ProductView {
-  constructor(product) {
+  constructor(product, reviews) {
     this.product = product;
+    this.reviews = reviews;
   }
 
   bindClickHandlers() {
@@ -62,6 +65,11 @@ class ProductView {
     const compiledTemplate = template(`
       <h1><%= title %></h1>
       <button id="addReview">Add Review</button>
+      <h3>Average: <%= averageReview %></h3>
+      <div class="ratings">
+          <div class="empty-stars"></div>
+          <div class="full-stars" style="width:<%= (averageReview / 5) * 100 %>%"></div>
+      </div>
       <hr />
       <h2>Reviews</h2>
       <div id="reviews"></div>
@@ -87,9 +95,18 @@ class ProductView {
         <button id="submitReview">Submit review</button>
       </div>
     `);
+
+    const numReviews = this.reviews.length;
+
+    const averageReview = round((
+      reduce(this.reviews, (result, review) => {
+      return result + review.stars;
+    }, 0) / numReviews), 1);
+
+    const decoratedProduct = { ...this.product, averageReview, numReviews };
    
     const container = document.createElement('div');
-    container.innerHTML = compiledTemplate(this.product);
+    container.innerHTML = compiledTemplate(decoratedProduct);
 
     document.getElementsByTagName('body')[0].appendChild(container);
     this.bindClickHandlers();

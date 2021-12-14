@@ -9,6 +9,8 @@
     "@rails/webpacker": "5.4.3",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "lodash.foreach": "^4.5.0",
+    "lodash.reduce": "^4.6.0",
+    "lodash.round": "^4.0.4",
     "lodash.template": "^4.5.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
